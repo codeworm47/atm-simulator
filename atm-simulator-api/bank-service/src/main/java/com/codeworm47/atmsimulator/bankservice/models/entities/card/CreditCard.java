@@ -1,5 +1,7 @@
 package com.codeworm47.atmsimulator.bankservice.models.entities.card;
 
-public class CreditCard {
+import com.codeworm47.atmsimulator.bankservice.models.entities.BaseEntity;
+
+public class CreditCard extends BaseEntity {
 
 }
