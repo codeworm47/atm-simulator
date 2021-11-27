@@ -1,10 +1,10 @@
-package com.codeworm47.atmsimulator.bankservice;
+package com.codeworm47.atmsimulator.atmservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BankserviceApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
