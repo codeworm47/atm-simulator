@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.codeworm47</groupId>
-	<artifactId>atmsimulator</artifactId>
+	<artifactId>atmsimulator.bankservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>atmsimulator</name>
+	<name>atmsimulator.bankservice</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
