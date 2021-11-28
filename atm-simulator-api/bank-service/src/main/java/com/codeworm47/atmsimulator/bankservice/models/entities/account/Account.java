@@ -4,17 +4,19 @@ import com.codeworm47.atmsimulator.bankservice.models.entities.BaseEntity;
 import com.codeworm47.atmsimulator.bankservice.models.entities.EntityRef;
 import com.codeworm47.atmsimulator.bankservice.models.entities.TimeStampCapable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Account extends BaseEntity implements TimeStampCapable {
     private Date createdDate;
     private Date lastModifiedDate;
-
+    @NotEmpty
     private String accountId;
     private String  name;
-    private String type;
     private AccountStatus status;
     private Double balance;
+    @NotNull
     private EntityRef userRef;
 
     public String getAccountId() {
@@ -31,14 +33,6 @@ public class Account extends BaseEntity implements TimeStampCapable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public AccountStatus getStatus() {

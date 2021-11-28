@@ -1,12 +1,31 @@
 package com.codeworm47.atmsimulator.bankservice.models.entities.user;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 public class UserIdentificationInfo {
+    @NotEmpty
     private String type;
+    @NotEmpty
+    @Indexed
     private String value;
     private Date expiry;
     private String documentImage;
+
+    public UserIdentificationInfo(String type, String value, Date expiry, String documentImage) {
+        this.type = type;
+        this.value = value;
+        this.expiry = expiry;
+        this.documentImage = documentImage;
+    }
+
+    public UserIdentificationInfo(String type, String value, Date expiry) {
+        this.type = type;
+        this.value = value;
+        this.expiry = expiry;
+    }
 
     public String getType() {
         return type;

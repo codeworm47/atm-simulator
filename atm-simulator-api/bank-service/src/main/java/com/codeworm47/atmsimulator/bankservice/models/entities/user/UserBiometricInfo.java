@@ -6,6 +6,17 @@ public class UserBiometricInfo {
     private String  hashedData;
     private String  externalLink;
 
+    public UserBiometricInfo(String type, String hashedData, String externalLink) {
+        this.type = type;
+        this.hashedData = hashedData;
+        this.externalLink = externalLink;
+    }
+
+    public UserBiometricInfo(String type, String hashedData) {
+        this.type = type;
+        this.hashedData = hashedData;
+    }
+
     public String getType() {
         return type;
     }

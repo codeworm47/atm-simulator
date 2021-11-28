@@ -3,6 +3,7 @@ package com.codeworm47.atmsimulator.bankservice.models.entities.user;
 import com.codeworm47.atmsimulator.bankservice.models.entities.BaseEntity;
 import com.codeworm47.atmsimulator.bankservice.models.entities.TimeStampCapable;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +12,13 @@ public class User extends BaseEntity implements TimeStampCapable {
     private Date createdDate;
     private Date lastModifiedDate;
 
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String lastName;
     private UserStatus status;
     private UserAuthenticationMechanism preferredAuthenticationMechanism;
+    @NotEmpty
     private List<UserIdentificationInfo> identificationInfo;
     private List<UserBiometricInfo> biometricInfo;
 
@@ -64,6 +68,10 @@ public class User extends BaseEntity implements TimeStampCapable {
 
     public void setBiometricInfo(List<UserBiometricInfo> biometricInfo) {
         this.biometricInfo = biometricInfo;
+    }
+
+    public String getFullName(){
+        return String.format("%s %s", this.name, this.lastName);
     }
 
     @Override
