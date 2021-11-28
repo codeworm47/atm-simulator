@@ -1,18 +1,18 @@
 package com.codeworm47.atmsimulator.bankservice;
 
-import com.codeworm47.atmsimulator.bankservice.models.entities.EntityRef;
-import com.codeworm47.atmsimulator.bankservice.models.entities.account.Account;
-import com.codeworm47.atmsimulator.bankservice.models.entities.account.AccountStatus;
-import com.codeworm47.atmsimulator.bankservice.models.entities.card.CreditCard;
-import com.codeworm47.atmsimulator.bankservice.models.entities.card.CreditCardStatus;
-import com.codeworm47.atmsimulator.bankservice.models.entities.user.*;
+import com.codeworm47.atmsimulator.bankservice.model.entities.EntityRef;
+import com.codeworm47.atmsimulator.bankservice.model.entities.account.Account;
+import com.codeworm47.atmsimulator.bankservice.model.entities.account.AccountStatus;
+import com.codeworm47.atmsimulator.bankservice.model.entities.card.CreditCard;
+import com.codeworm47.atmsimulator.bankservice.model.entities.card.CreditCardStatus;
+import com.codeworm47.atmsimulator.bankservice.model.entities.user.*;
 import com.codeworm47.atmsimulator.bankservice.persistence.AccountRepository;
 import com.codeworm47.atmsimulator.bankservice.persistence.CreditCardRepository;
 import com.codeworm47.atmsimulator.bankservice.persistence.UserRepository;
-import com.codeworm47.atmsimulator.bankservice.utils.CodecUtils;
-import com.codeworm47.atmsimulator.bankservice.utils.DateUtils;
-import com.codeworm47.atmsimulator.bankservice.utils.Hashing;
-import com.codeworm47.atmsimulator.bankservice.utils.ResourceReader;
+import com.codeworm47.atmsimulator.bankservice.util.CodecUtils;
+import com.codeworm47.atmsimulator.bankservice.util.DateUtils;
+import com.codeworm47.atmsimulator.bankservice.util.Hashing;
+import com.codeworm47.atmsimulator.bankservice.util.ResourceReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +47,11 @@ public class DataSeeder implements CommandLineRunner {
         user.setPreferredAuthenticationMechanism(UserAuthenticationMechanism.PinNumber);
         user.setIdentificationInfo(Collections.singletonList(new UserIdentificationInfo("NationalId", "123456",
                 DateUtils.date(2022, 1, 1))));
-        byte[] fingerprintBytes = ResourceReader.readBytes("samples/fingerprint.jpg");
+        String filePath = "samples/fingerprint.jpg";
+        byte[] fingerprintBytes = ResourceReader.readBytes(filePath);
         String base64 = CodecUtils.toBase64URI(fingerprintBytes);
         String hashedBase64 = Hashing.sha256Hex(base64);
-        user.setBiometricInfo(Collections.singletonList(new UserBiometricInfo("FingerPrint", hashedBase64)));
+        user.setBiometricInfo(Collections.singletonList(new UserBiometricInfo("FingerPrint", hashedBase64, filePath)));
 
         userRepository.insert(user);
         LOGGER.debug("user created : id -> {}", user.getId());
@@ -72,7 +73,7 @@ public class DataSeeder implements CommandLineRunner {
     private CreditCard createCreditCard(Account account){
         LOGGER.debug("creating credit card");
         CreditCard creditCard = new CreditCard();
-        creditCard.setCardId("1122445599776611");
+        creditCard.setCardNumber("1122445599776611");
         creditCard.setIssuedDate(DateUtils.nowUtc());
         creditCard.setStatus(CreditCardStatus.Active);
         creditCard.setAccountRef(new EntityRef(account.getId(), account.getClass().getSimpleName()));

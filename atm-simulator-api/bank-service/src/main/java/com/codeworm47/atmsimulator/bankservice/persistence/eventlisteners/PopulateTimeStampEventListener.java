@@ -1,8 +1,8 @@
 package com.codeworm47.atmsimulator.bankservice.persistence.eventlisteners;
 
-import com.codeworm47.atmsimulator.bankservice.models.entities.BaseEntity;
-import com.codeworm47.atmsimulator.bankservice.models.entities.TimeStampCapable;
-import com.codeworm47.atmsimulator.bankservice.utils.DateUtils;
+import com.codeworm47.atmsimulator.bankservice.model.entities.BaseEntity;
+import com.codeworm47.atmsimulator.bankservice.model.entities.TimeStampCapable;
+import com.codeworm47.atmsimulator.bankservice.util.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
