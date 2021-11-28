@@ -5,6 +5,9 @@ public class EntityRef {
     private String type;
     private String url;
 
+    public EntityRef() {
+    }
+
     public EntityRef(String id, String type, String url) {
         this.id = id;
         this.type = type;

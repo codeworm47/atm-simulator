@@ -3,6 +3,7 @@ package com.codeworm47.atmsimulator.bankservice.model.entities.account;
 import com.codeworm47.atmsimulator.bankservice.model.entities.BaseEntity;
 import com.codeworm47.atmsimulator.bankservice.model.entities.EntityRef;
 import com.codeworm47.atmsimulator.bankservice.model.entities.TimeStampCapable;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ public class Account extends BaseEntity implements TimeStampCapable {
     private Date createdDate;
     private Date lastModifiedDate;
     @NotEmpty
+    @Indexed(unique = true)
     private String accountId;
     private String  name;
     private AccountStatus status;

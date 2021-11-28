@@ -8,6 +8,10 @@ public class TokenInputModel {
     String pinNumber;
     byte[] biometric;
 
+    public TokenInputModel() {
+
+    }
+
     public TokenInputModel(UserAuthenticationMechanism authenticationMechanism, String cardNumber, String pinNumber) {
         this.authenticationMechanism = authenticationMechanism;
         this.cardNumber = cardNumber;

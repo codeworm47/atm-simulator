@@ -9,10 +9,13 @@ public class UserIdentificationInfo {
     @NotEmpty
     private String type;
     @NotEmpty
-    @Indexed
+    @Indexed(unique = true)
     private String value;
     private Date expiry;
     private String documentImage;
+
+    public UserIdentificationInfo() {
+    }
 
     public UserIdentificationInfo(String type, String value, Date expiry, String documentImage) {
         this.type = type;

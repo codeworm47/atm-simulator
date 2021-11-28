@@ -6,7 +6,7 @@ import com.codeworm47.atmsimulator.bankservice.model.entities.user.UserAuthentic
 import org.springframework.stereotype.Service;
 
 @Service
-public class FingerPrintTokenService implements TokenService {
+public class FingerPrintTokenService extends TokenService {
     @Override
     public UserAuthenticationMechanism getAuthMechanism() {
         return UserAuthenticationMechanism.FingerPrint;

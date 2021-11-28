@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private static final RequestMatcher PROTECTED_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/**")
+            new AntPathRequestMatcher("/bank/**")
     );
 
     AuthenticationProvider provider;
@@ -36,13 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(provider);
-    }
-
-    @Override
-    public void configure(final WebSecurity webSecurity) {
-
-        webSecurity.ignoring().antMatchers("user/token/**");
-        webSecurity.ignoring().antMatchers("/error");
     }
 
     @Override

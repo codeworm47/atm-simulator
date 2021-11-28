@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+//Needed for using entity life cycle events like before save, after save, etc.
 @Configuration
 public class MongoConfigs {
     @Bean

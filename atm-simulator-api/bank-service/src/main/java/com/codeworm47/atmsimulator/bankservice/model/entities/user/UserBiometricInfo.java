@@ -7,6 +7,9 @@ public class UserBiometricInfo {
     private String  externalLink;
     private String  filePath;
 
+    public UserBiometricInfo() {
+    }
+
     public UserBiometricInfo(String type, String hashedData, String filePath, String externalLink) {
         this(type, hashedData, filePath);
         this.externalLink = externalLink;

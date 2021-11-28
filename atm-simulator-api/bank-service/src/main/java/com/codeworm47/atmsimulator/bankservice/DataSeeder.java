@@ -39,13 +39,20 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private User createUser() throws Exception {
+
         LOGGER.debug("creating user");
-        User user = new User();
+        String nationalId = "123456";
+        User user;
+        user = userRepository.findByNationalId(nationalId);
+        if (user != null){
+            return user;
+        }
+        user = new User();
         user.setName("Johny");
         user.setLastName("Killer");
         user.setStatus(UserStatus.Active);
         user.setPreferredAuthenticationMechanism(UserAuthenticationMechanism.PinNumber);
-        user.setIdentificationInfo(Collections.singletonList(new UserIdentificationInfo("NationalId", "123456",
+        user.setIdentificationInfo(Collections.singletonList(new UserIdentificationInfo("NationalId",nationalId ,
                 DateUtils.date(2022, 1, 1))));
         String filePath = "samples/fingerprint.jpg";
         byte[] fingerprintBytes = ResourceReader.readBytes(filePath);
@@ -60,8 +67,14 @@ public class DataSeeder implements CommandLineRunner {
 
     private Account createAccount(User user){
         LOGGER.debug("creating account");
-        Account account = new Account();
-        account.setAccountId("11223344556677");
+        Account account;
+        String accountId = "11223344556677";
+        account = accountRepository.findByAccountId(accountId);
+        if (account != null){
+            return account;
+        }
+        account = new Account();
+        account.setAccountId(accountId);
         account.setName(user.getFullName());
         account.setStatus(AccountStatus.Active);
         account.setUserRef(new EntityRef(user.getId(), user.getClass().getSimpleName()));
@@ -72,8 +85,14 @@ public class DataSeeder implements CommandLineRunner {
 
     private CreditCard createCreditCard(Account account){
         LOGGER.debug("creating credit card");
-        CreditCard creditCard = new CreditCard();
-        creditCard.setCardNumber("1122445599776611");
+        CreditCard creditCard;
+        String cardNumber = "1122445599776611";
+        creditCard = creditCardRepository.findByCardNumber(cardNumber);
+        if (creditCard != null){
+            return creditCard;
+        }
+        creditCard = new CreditCard();
+        creditCard.setCardNumber(cardNumber);
         creditCard.setIssuedDate(DateUtils.nowUtc());
         creditCard.setStatus(CreditCardStatus.Active);
         creditCard.setAccountRef(new EntityRef(account.getId(), account.getClass().getSimpleName()));

@@ -2,6 +2,7 @@ package com.codeworm47.atmsimulator.bankservice.model.entities.card;
 
 import com.codeworm47.atmsimulator.bankservice.model.entities.BaseEntity;
 import com.codeworm47.atmsimulator.bankservice.model.entities.EntityRef;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class CreditCard extends BaseEntity {
     @NotEmpty
     @Pattern(regexp = "\\d+")
     @Size(min = 16, max = 20)
+    @Indexed(unique = true)
     private String cardNumber;
     private CreditCardStatus status;
     @NotEmpty
