@@ -16,11 +16,14 @@ import com.codeworm47.atmsimulator.bankservice.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 //TODO Unfinished
 public class OperationService {
     BankOperationFactory<? extends OperationParams, ? extends OperationResult> bankOperationFactory;
     CreditCardService creditCardService;
+    AccountRepository accountRepository;
     AccountTransactionRepository accountTransactionRepository;
 
     public <TParams extends OperationParams> OperationResult doOperation(String operationName, AccountTransactionType transactionType,
@@ -33,6 +36,12 @@ public class OperationService {
         try {
             //TODO LOG Beginning
             CreditCard creditCard = creditCardService.validateAndGetCreditCardByCardId(operationName, params.getCreditCardNumber());
+            Optional<Account> account = accountRepository.findById(creditCard.getAccountRef().getId());
+            //TODO Handle account being empty (not exists) and throw exception
+            //Move accountRepository.findById to AccountService and use validateAndGet.. style
+            params.setAccount(account.get());
+            params.setCreditCard(creditCard);
+
 
             accountTransaction.setAccountRef(creditCard.getAccountRef());
             accountTransaction.setOperation(operationName);
@@ -75,5 +84,10 @@ public class OperationService {
     @Autowired
     public void setCreditCardService(CreditCardService creditCardService) {
         this.creditCardService = creditCardService;
+    }
+
+    @Autowired
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class BalanceOperation implements AtomicBankOperation<BalanceOperationParams, BalanceOperationResult> {
     @Override
     public String getOperationName() {
-        return "getBalance";
+        return OperationConstants.OPERATION_NAME_GET_BALANCE;
     }
 
     @Override
@@ -23,6 +23,8 @@ public class BalanceOperation implements AtomicBankOperation<BalanceOperationPar
 
     @Override
     public BalanceOperationResult doOperation(BalanceOperationParams params) {
-        return new BalanceOperationResult();
+        BalanceOperationResult res = new BalanceOperationResult();
+        res.setBalance(params.getAccount().getBalance());
+        return res;
     }
 }
