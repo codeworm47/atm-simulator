@@ -23,6 +23,8 @@ public class CreditCard extends BaseEntity {
     private String hashedPin;
     @NotNull
     private EntityRef accountRef;
+    @NotNull
+    private EntityRef userRef;
 
     public Date getIssuedDate() {
         return issuedDate;
@@ -62,5 +64,13 @@ public class CreditCard extends BaseEntity {
 
     public void setAccountRef(EntityRef accountRef) {
         this.accountRef = accountRef;
+    }
+
+    public EntityRef getUserRef() {
+        return userRef;
+    }
+
+    public void setUserRef(EntityRef userRef) {
+        this.userRef = userRef;
     }
 }

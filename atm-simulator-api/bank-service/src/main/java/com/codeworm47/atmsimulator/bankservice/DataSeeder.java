@@ -98,6 +98,7 @@ public class DataSeeder implements CommandLineRunner {
         creditCard.setAccountRef(new EntityRef(account.getId(), account.getClass().getSimpleName()));
         String pin = "3344";
         creditCard.setHashedPin(Hashing.sha256Hex(pin));
+        creditCard.setUserRef(account.getUserRef());
         creditCardRepository.insert(creditCard);
         LOGGER.debug("creditCard : id -> {}", creditCard.getId());
         return creditCard;

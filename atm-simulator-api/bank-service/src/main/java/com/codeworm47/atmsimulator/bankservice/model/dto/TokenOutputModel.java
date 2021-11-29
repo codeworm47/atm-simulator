@@ -18,4 +18,12 @@ public class TokenOutputModel {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public Date getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(Date expiresAt) {
+        this.expiresAt = expiresAt;
+    }
 }

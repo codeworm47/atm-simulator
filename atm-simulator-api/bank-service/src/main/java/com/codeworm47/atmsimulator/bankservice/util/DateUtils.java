@@ -12,4 +12,10 @@ public final class DateUtils {
         calendar.set(year, month, day);
         return calendar.getTime();
     }
+    public static Date addSecondToNow(int seconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowUtc());
+        calendar.add(Calendar.SECOND, seconds);
+        return calendar.getTime();
+    }
 }
