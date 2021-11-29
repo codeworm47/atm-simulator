@@ -4,7 +4,7 @@ import com.codeworm47.atmsimulator.bankservice.exception.logical.BankOperationNo
 import com.codeworm47.atmsimulator.bankservice.exception.logical.ServiceImplementationNotfoundException;
 import com.codeworm47.atmsimulator.bankservice.model.dto.operation.OperationParams;
 import com.codeworm47.atmsimulator.bankservice.model.dto.operation.OperationResult;
-import com.codeworm47.atmsimulator.bankservice.service.operation.AtomicBankOperation;
+import com.codeworm47.atmsimulator.bankservice.service.bankOperation.AtomicBankOperation;
 import com.codeworm47.atmsimulator.bankservice.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -28,21 +28,7 @@ public abstract class TokenService {
     public abstract UserAuthenticationMechanism getAuthMechanism();
     public abstract TokenOutputModel generateToken(TokenInputModel tokenModel);
 
-    protected CreditCard validateAndGetCreditCard(String operationName, TokenInputModel tokenModel){
-        CreditCard creditCard = creditCardRepository.findByCardNumber(tokenModel.getCardNumber());
-        if (creditCard == null){
-            throw new EntityNotFoundException(operationName,
-                    ExceptionConstants.CREDIT_CARD_NOT_FOUND_BY_CARD_ID, CreditCard.class.getSimpleName(),
-                    Map.of("cardNumber", tokenModel.getCardNumber()));
-        }
-        if (!CreditCardStatus.Active.equals(creditCard.getStatus())
-                && !CreditCardStatus.Created.equals(creditCard.getStatus())){
-            throw new InvalidOperationForStateException(operationName,
-                    ExceptionConstants.CREDIT_CARD_INVALID_STATE_FOR_OPERATION, CreditCard.class.getSimpleName(),
-                    creditCard.getId(), creditCard.getStatus().toString(), "Created,Active");
-        }
-        return creditCard;
-    }
+
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {

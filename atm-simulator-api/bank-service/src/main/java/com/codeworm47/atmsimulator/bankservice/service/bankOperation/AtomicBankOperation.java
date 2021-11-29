@@ -1,4 +1,4 @@
-package com.codeworm47.atmsimulator.bankservice.service.operation;
+package com.codeworm47.atmsimulator.bankservice.service.bankOperation;
 
 import com.codeworm47.atmsimulator.bankservice.model.dto.operation.OperationParams;
 import com.codeworm47.atmsimulator.bankservice.model.dto.operation.OperationResult;
