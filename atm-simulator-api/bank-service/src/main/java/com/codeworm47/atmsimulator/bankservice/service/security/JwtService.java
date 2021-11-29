@@ -1,6 +1,7 @@
 package com.codeworm47.atmsimulator.bankservice.service.security;
 
 import com.codeworm47.atmsimulator.bankservice.model.entities.card.CreditCardStatus;
+import com.codeworm47.atmsimulator.bankservice.model.entities.user.UserAuthenticationMechanism;
 import com.codeworm47.atmsimulator.bankservice.util.DateUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -19,8 +20,8 @@ public class JwtService {
     @Value("${TOKEN_EXPIRY_SECONDS}")
     private int tokenExpirySeconds;
 
-    public String generateToken(String creditCardNumber,
-                                String hashedCreditCardPinNumber, CreditCardStatus creditCardStatus){
+    public String generateToken(String creditCardNumber, String hashedValue,
+                                CreditCardStatus creditCardStatus, UserAuthenticationMechanism authenticationMechanism){
 
         return Jwts.builder().setSubject("User")
                 .setIssuer("Bank_Service").setIssuedAt(DateUtils.nowUtc())
@@ -28,7 +29,8 @@ public class JwtService {
                 .setExpiration(DateUtils.addSecondToNow(tokenExpirySeconds))
                 .claim("creditCardNumber", creditCardNumber)
                 .claim("creditCardStatus", creditCardStatus)
-                .claim("hashedCreditCardPinNumber", hashedCreditCardPinNumber)
+                .claim("hashedValue", hashedValue)
+                .claim("authenticationMechanism", authenticationMechanism)
                 .compact();
     }
 

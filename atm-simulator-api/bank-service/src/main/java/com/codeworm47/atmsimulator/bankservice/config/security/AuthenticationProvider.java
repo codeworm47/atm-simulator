@@ -35,7 +35,8 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
         if (claims == null || claims.isEmpty() ||
                 !claims.containsKey("creditCardNumber") ||
                 !claims.containsKey("creditCardStatus") ||
-                !claims.containsKey("hashedCreditCardPinNumber")
+                !claims.containsKey("hashedValue") ||
+                !claims.containsKey("authenticationMechanism")
         ){
             throw new UsernameNotFoundException(String.format("invalid token : %s", token));
         }
@@ -45,7 +46,7 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
             throw new UsernameNotFoundException(String.format("invalid credit card status : %s, card number : %s",
                     creditCardStatus, creditCardNumber));
         }
-        return new User(creditCardNumber, claims.get("hashedCreditCardPinNumber").toString(),
+        return new User(creditCardNumber, claims.get("hashedValue").toString(),
                 AuthorityUtils.createAuthorityList("USER"));
     }
 

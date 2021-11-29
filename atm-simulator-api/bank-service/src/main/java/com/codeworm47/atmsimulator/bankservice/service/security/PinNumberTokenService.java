@@ -1,23 +1,21 @@
 package com.codeworm47.atmsimulator.bankservice.service.security;
 
-import com.codeworm47.atmsimulator.bankservice.exception.operational.EntityNotFoundException;
 import com.codeworm47.atmsimulator.bankservice.exception.operational.ExceptionConstants;
-import com.codeworm47.atmsimulator.bankservice.exception.operational.InvalidOperationForStateException;
 import com.codeworm47.atmsimulator.bankservice.exception.operational.creditcard.WrongPinNumberException;
 import com.codeworm47.atmsimulator.bankservice.model.dto.TokenInputModel;
 import com.codeworm47.atmsimulator.bankservice.model.dto.TokenOutputModel;
 import com.codeworm47.atmsimulator.bankservice.model.entities.card.CreditCard;
-import com.codeworm47.atmsimulator.bankservice.model.entities.card.CreditCardStatus;
 import com.codeworm47.atmsimulator.bankservice.model.entities.user.UserAuthenticationMechanism;
 import com.codeworm47.atmsimulator.bankservice.service.operation.OperationConstants;
 import com.codeworm47.atmsimulator.bankservice.util.DateUtils;
 import com.codeworm47.atmsimulator.bankservice.util.Hashing;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class PinNumberTokenService extends TokenService {
+    final static Logger LOGGER = LogManager.getLogger(PinNumberTokenService.class);
 
     @Override
     public UserAuthenticationMechanism getAuthMechanism() {
@@ -33,7 +31,8 @@ public class PinNumberTokenService extends TokenService {
             throw new WrongPinNumberException(operationName, ExceptionConstants.CREDIT_CARD_WRONG_PIN_NUMBER,
                     creditCard.getCardNumber(), tokenModel.getPinNumber());
         }
-        return new TokenOutputModel(jwtService.generateToken(creditCard.getCardNumber(), hashedPin, creditCard.getStatus()),
-                DateUtils.addSecondToNow(tokenExpirySeconds));
+        String token = jwtService.generateToken(creditCard.getCardNumber(), hashedPin, creditCard.getStatus(), getAuthMechanism());
+        LOGGER.info("generated token for {} : {}", creditCard.getCardNumber(), token);
+        return new TokenOutputModel(token, DateUtils.addSecondToNow(tokenExpirySeconds));
     }
 }
